@@ -87,7 +87,7 @@ public class Monom implements function{
 
 		} catch(Exception j) {
 
-			throw new RuntimeException("Err:your monom is not good---> "+s);
+			throw new RuntimeException("Err:your function is Not written correctly---> "+s);
 		}
 
 

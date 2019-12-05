@@ -99,8 +99,62 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		if(s.charAt(0)=='+' || s.charAt(0)=='-' || Character.isDigit(s.charAt(0)))
+			return new Polynom(s);
+		String op="";
+		String nc1="";
+		for(int i=0;i<s.length();i++) {
+			if(s.charAt(i)=='(') {
+				op=op+s.substring(0,i);
+				nc1=nc1+s.substring(i+1,s.length()-1);
+				break;
+			}
+		}
+		int numofopen=0;
+		int numofclose=0;
+		int numofpsic=0;
+		String left="";
+		String right="";
+		for(int i=0;i<=nc1.length();i++) {
+			if(numofopen==numofclose && numofclose>=1 && numofopen>=1) {
+				left=nc1.substring(0,i);
+				right=nc1.substring(i+1,nc1.length());
+				break;
+			}
+			if(numofpsic>=1 && numofopen==0) {
+				left=nc1.substring(0,i-1);
+				right=nc1.substring(i,nc1.length());
+				break;
+			}
+			if(nc1.charAt(i)=='(')
+				numofopen++;
+			if(nc1.charAt(i)==')')
+				numofclose++;
+			if(nc1.charAt(i)==',')
+				numofpsic++;
+		}
+		
+		return new ComplexFunction(op,initFromString(left),initFromString(right));
+		
+		
+		
+	}
+	private boolean isOp(String s) {
+		s=s.toLowerCase();
+		if(s.equals("mul"))
+			return true;
+		if(s.equals("plus"))
+			return true;
+		if(s.equals("div"))
+			return true;
+		if(s.equals("comp"))
+			return true;
+		if(s.equals("max"))
+			return true;
+		if(s.equals("min"))
+			return true;
+		else
+			return false;
 	}
 
 	@Override
