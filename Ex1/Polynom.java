@@ -27,7 +27,7 @@ public class Polynom implements Polynom_able{
 	}
 	
 	public Polynom(String s) {
-
+		s=s.replaceAll(" ","");
 		s=s.toLowerCase();
 		String [] s1=s.split("(?=\\-)|(?=\\+)");
 		for(int i=0;i<s1.length;i++)

@@ -75,6 +75,8 @@ public class Monom implements function{
 				set_coefficient(1);
 			else if(s.length()==2&&s.charAt(0)=='-'&&s.charAt(1)=='x')
 				set_coefficient(-1);
+			else if(a_coefficient.equals("-"))
+				set_coefficient(-1);
 			else 
 				set_coefficient(Double.parseDouble(a_coefficient));
 			String x="x";

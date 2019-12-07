@@ -99,6 +99,7 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public function initFromString(String s) {
+		s=s.replaceAll(" ","");
 		if(s.charAt(0)=='+' || s.charAt(0)=='-' || Character.isDigit(s.charAt(0)))
 			return new Polynom(s);
 		String op="";
@@ -133,11 +134,11 @@ public class ComplexFunction implements complex_function {
 			if(nc1.charAt(i)==',')
 				numofpsic++;
 		}
-		
+
 		return new ComplexFunction(op,initFromString(left),initFromString(right));
-		
-		
-		
+
+
+
 	}
 	private boolean isOp(String s) {
 		s=s.toLowerCase();
@@ -251,8 +252,7 @@ public class ComplexFunction implements complex_function {
 	public String toString() {
 		return printPreorder(this.root);
 	}
-	private String printPreorder(NodeF node) 
-	{ 
+	private String printPreorder(NodeF node) { 
 		String ans="";
 		if (node == null) 
 			return ans; 
@@ -270,6 +270,31 @@ public class ComplexFunction implements complex_function {
 
 
 	} 
+	public boolean equals(Object obj) {
+		
+		if(obj instanceof ComplexFunction) {
+			for(int i=-100;i<=100;i+=2) {
+				if(((ComplexFunction) obj).f(i)!=this.f(i) &&Math.abs(((ComplexFunction) obj).f(i)-this.f(i))>Monom.EPSILON)
+					return false;
+			}
+			return true;
+		}
+		if(obj instanceof Polynom) {
+			for(int i=-100;i<=100;i+=2) {
+				if(((Polynom) obj).f(i)!=this.f(i) && Math.abs(((Polynom) obj).f(i)-this.f(i))>Monom.EPSILON)
+					return false;
+			}
+			return true;
+		}
+		if(obj instanceof Monom) {
+			for(int i=-100;i<=100;i+=2) {
+				if(((Monom) obj).f(i)!=this.f(i) && Math.abs(((Monom) obj).f(i)-this.f(i))>Monom.EPSILON)
+					return false;
+			}
+			return true;
+		}
+		return false;
+	}
 
 
 }
