@@ -67,6 +67,17 @@ public class ComplexFunction implements complex_function {
 	private ComplexFunction() {
 
 	}
+	public ComplexFunction(Operation op, function p1, function p2) {
+		// TODO Auto-generated constructor stub
+		if(op==Operation.Error) {
+			throw new RuntimeErrorException(null,"inpot not good");
+		}
+		this.root.left=new NodeF(p1.copy());
+		this.root.right=new NodeF(p2.copy());
+		this.root.op=op;
+		this.root.fun=null;
+		
+	}
 	@Override
 	public double f(double x) {
 		return inorder(this.root,x);

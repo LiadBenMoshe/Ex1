@@ -1,10 +1,21 @@
 package Ex1;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+
+import com.google.gson.Gson;
+
+import Bdikot.Bookstore;
+
+
 
 public class Functions_GUI implements functions {
 	private ArrayList<function> _functions =new ArrayList<function>();
@@ -20,26 +31,26 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public boolean addAll(Collection<? extends function> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return this._functions.addAll(arg0);
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		_functions.clear();
 
 	}
 
 	@Override
 	public boolean contains(Object arg0) {
-		// TODO Auto-generated method stub
+		if(_functions.contains(arg0))
+			return true;
 		return false;
+
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return _functions.containsAll(arg0);
 	}
 
 	@Override
@@ -52,26 +63,22 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public Iterator<function> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return _functions.iterator();
 	}
 
 	@Override
 	public boolean remove(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return _functions.remove(arg0);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return _functions.removeAll(arg0);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return _functions.retainAll(arg0);
 	}
 
 	@Override
@@ -82,25 +89,45 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return _functions.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return _functions.toArray(arg0);
 	}
 
 	@Override
 	public void initFromFile(String file) throws IOException {
 		// TODO Auto-generated method stub
+		Polynom p1 =new Polynom("2x^2");
+		ComplexFunction cf =new ComplexFunction(p1);
+		String line="";
+		this._functions.clear();
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		while ((line = br.readLine()) != null) 
+		{
+			this._functions.add(cf.initFromString(line));
+		}
+		br.close();
+
 
 	}
 
 	@Override
 	public void saveToFile(String file) throws IOException {
 		// TODO Auto-generated method stub
+		try {
+			PrintWriter pw = new PrintWriter(new File(file));
+			for(int i=0;i<this.size();i++) {
+				pw.write(this._functions.get(i).toString());
+				pw.write("\n");
+			}
+			pw.close();
+		}
+		catch  (FileNotFoundException e){
+			e.printStackTrace();
+		}
 
 	}
 
@@ -152,6 +179,7 @@ public class Functions_GUI implements functions {
 		}
 
 		for (int i = 0; i<n; i++) {
+
 			StdDraw.line(x[i], y[i], x[i+1], y[i+1]);
 		}
 
@@ -160,7 +188,23 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public void drawFunctions(String json_file) {
-		// TODO Auto-generated method stub
+		Gson gson = new Gson();
+		Parameters parameters =null;
+		try 
+		{
+
+			FileReader reader = new FileReader(json_file);
+			parameters = gson.fromJson(reader,Parameters.class);
+			
+
+		} 
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		Range x=new Range(parameters.Range_X[0],parameters.Range_X[1]);
+		Range y=new Range(parameters.Range_Y[0],parameters.Range_Y[1]);
+		this.drawFunctions(parameters.Width,parameters.Height,x,y,parameters.Resolution);
+
 
 	}
 
