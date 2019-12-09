@@ -13,7 +13,7 @@ import javax.management.RuntimeErrorException;
  * This class represents a simple "Monom" of shape a*x^b, where a is a real number and a is an integer (summed a none negative), 
  * see: https://en.wikipedia.org/wiki/Monomial 
  * The class implements function and support simple operations as: construction, value at x, derivative, add and multiply. 
- * @author Boaz
+ * @author liad 
  *
  */
 public class Monom implements function{
@@ -26,9 +26,14 @@ public class Monom implements function{
 		this.set_coefficient(a);
 		this.set_power(b);
 	}
+	/**
+	 * make a new from monom ot
+	 * @param ot
+	 */
 	public Monom(Monom ot) {
 		this(ot.get_coefficient(), ot.get_power());
 	}
+
 
 	public double get_coefficient() {
 		return this._coefficient;
@@ -37,13 +42,16 @@ public class Monom implements function{
 		return this._power;
 	}
 	/** 
-	 * this method returns the derivative monom of this.
+	 * this method returns the derivative the monom.
 	 * @return
 	 */
 	public Monom derivative() {
 		if(this.get_power()==0) {return getNewZeroMonom();}
 		return new Monom(this.get_coefficient()*this.get_power(), this.get_power()-1);
 	}
+	/**
+	 * give back the value of the monom in x point.
+	 */
 	public double f(double x) {
 		double ans=0;
 		double p = this.get_power();
@@ -51,7 +59,10 @@ public class Monom implements function{
 		return ans;
 	} 
 	public boolean isZero() {return this.get_coefficient() == 0;}
-	// ***************** add your code below **********************
+	/**
+	 * get string of monom and craete a new monom 
+	 * @param s
+	 */
 	public Monom(String s) {
 
 		try {
@@ -95,7 +106,10 @@ public class Monom implements function{
 
 
 	}
-
+	/**
+	 * add monom m to the current monom
+	 * @param m
+	 */
 	public void add(Monom m) {
 		if(m._power==get_power()) 
 		{
@@ -107,13 +121,18 @@ public class Monom implements function{
 
 	}
 
-
+	/**
+	 * multipy monom m to current monom
+	 * @param d
+	 */
 	public void multipy(Monom d) {
 
 		this._coefficient=this._coefficient*d._coefficient;
 		this._power=this._power+d._power;
 	}
-
+	/**
+	 * return string of current monom
+	 */
 	public String toString() {
 		String ans = "";
 		if(this._coefficient==0)
@@ -128,7 +147,7 @@ public class Monom implements function{
 
 		return ans;
 	}
-	
+
 	private void set_coefficient(double a){
 		this._coefficient = a;
 	}
@@ -146,11 +165,17 @@ public class Monom implements function{
 		return f;
 	}
 	@Override
+	/**
+	 * copy this monom and retrun a new monom
+	 */
 	public function copy() {
 		String s=this.toString();
 		function m1=new Monom(s);
 		return m1;
 	}
+	/**
+	 * check if the object is equals to the current monom
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof Polynom) {
 			Polynom p =new Polynom(obj.toString());

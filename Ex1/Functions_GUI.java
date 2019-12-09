@@ -98,6 +98,9 @@ public class Functions_GUI implements functions {
 	}
 
 	@Override
+	/**
+	 * read functions from file and add them to collection
+	 */
 	public void initFromFile(String file) throws IOException {
 		// TODO Auto-generated method stub
 		Polynom p1 =new Polynom("2x^2");
@@ -115,6 +118,9 @@ public class Functions_GUI implements functions {
 	}
 
 	@Override
+	/**
+	 * save all the functions in the current collection to a file
+	 */
 	public void saveToFile(String file) throws IOException {
 		// TODO Auto-generated method stub
 		try {
@@ -132,6 +138,9 @@ public class Functions_GUI implements functions {
 	}
 
 	@Override
+	/**
+	 * print all the functions in the current collection
+	 */
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
 		// TODO Auto-generated method stub
 		StdDraw.setCanvasSize(width,height);
@@ -187,6 +196,9 @@ public class Functions_GUI implements functions {
 	}
 
 	@Override
+	/**
+	 * read parameters from a json file and than draw the functions in the current collection 
+	 */
 	public void drawFunctions(String json_file) {
 		Gson gson = new Gson();
 		Parameters parameters =null;

@@ -4,7 +4,11 @@ import javax.management.RuntimeErrorException;
 
 public class ComplexFunction implements complex_function {
 	private NodeF root = new NodeF(Operation.None);
-
+/**
+ * a new class made for this complexfunction class
+ * @author liadb
+ *
+ */
 	private class NodeF{
 		Operation op;
 		function fun;
@@ -29,7 +33,6 @@ public class ComplexFunction implements complex_function {
 			this.right=node.right;
 		}
 	}
-
 
 	public ComplexFunction(String string, function p1, function p2) {
 		if(WhatOp(string)==Operation.Error) {
@@ -59,7 +62,10 @@ public class ComplexFunction implements complex_function {
 		else
 			return Operation.Error;
 	}
-
+/**
+ * make a new ComplexFunction from function
+ * @param p3
+ */
 	public ComplexFunction(function p3) {
 		this.root= new NodeF(p3.copy());
 	}
@@ -67,6 +73,12 @@ public class ComplexFunction implements complex_function {
 	private ComplexFunction() {
 
 	}
+	/**
+	 * make a new ComplexFunction from a 2 function and operation
+	 * @param op
+	 * @param p1
+	 * @param p2
+	 */
 	public ComplexFunction(Operation op, function p1, function p2) {
 		// TODO Auto-generated constructor stub
 		if(op==Operation.Error) {
@@ -79,6 +91,9 @@ public class ComplexFunction implements complex_function {
 		
 	}
 	@Override
+	/**
+	 * return the value of this ComplexFunction in the point x
+	 */
 	public double f(double x) {
 		return inorder(this.root,x);
 
@@ -109,6 +124,9 @@ public class ComplexFunction implements complex_function {
 
 
 	@Override
+	/**
+	 * make a new ComplexFunction from a string that include function and operations
+	 */
 	public function initFromString(String s) {
 		s=s.replaceAll(" ","");
 		if(s.charAt(0)=='+' || s.charAt(0)=='-' || Character.isDigit(s.charAt(0)))
@@ -170,6 +188,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
+	/**
+	 * copy this function and return a new function
+	 */
 	public function copy() {
 		ComplexFunction f =new ComplexFunction();
 		f.root=new NodeF(this.root);
@@ -177,6 +198,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
+	/**
+	 * plus function to the current function
+	 */
 	public void plus(function f1) {
 		NodeF newnode = new NodeF(Operation.Plus);
 		newnode.right=new NodeF(f1);
@@ -185,6 +209,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
+	/**
+	 * multiply function to the current function
+	 */
 	public void mul(function f1) {
 		NodeF newnode = new NodeF(Operation.Times);
 		newnode.right=new NodeF(f1);
@@ -193,6 +220,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
+	/**
+	 * divide function to the current function
+	 */
 	public void div(function f1) {
 		NodeF newnode = new NodeF(Operation.Divid);
 		newnode.right=new NodeF(f1);
@@ -202,6 +232,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
+	/**
+	 * retrun the max function
+	 */
 	public void max(function f1) {
 		NodeF newnode = new NodeF(Operation.Max);
 		newnode.right=new NodeF(f1);
@@ -211,6 +244,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
+	/**
+	 * retrun the min function
+	 */
 	public void min(function f1) {
 		NodeF newnode = new NodeF(Operation.Min);
 		newnode.right=new NodeF(f1);
@@ -220,6 +256,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
+	/**
+	 * made composition of the function
+	 */
 	public void comp(function f1) {
 		NodeF newnode = new NodeF(Operation.Comp);
 		newnode.right=new NodeF(f1);
@@ -229,6 +268,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
+	/**
+	 * return the left function
+	 */
 	public function left() {
 		ComplexFunction compL =new ComplexFunction();
 		compL.root=this.root.left;
@@ -236,6 +278,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
+	/**
+	 * return the right function
+	 */
 	public function right() {
 		ComplexFunction compR =new ComplexFunction();
 		compR.root=this.root.right;
@@ -260,6 +305,9 @@ public class ComplexFunction implements complex_function {
 		else
 			return "comp";
 	}
+	/**
+	 * return the string of this function
+	 */
 	public String toString() {
 		return printPreorder(this.root);
 	}
@@ -280,7 +328,10 @@ public class ComplexFunction implements complex_function {
 		return ans;
 
 
-	} 
+	}
+	/**
+	 * check if the object is equal to current function
+	 */
 	public boolean equals(Object obj) {
 		
 		if(obj instanceof ComplexFunction) {

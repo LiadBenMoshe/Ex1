@@ -13,19 +13,24 @@ import java.util.function.Predicate;
  * 2. Finding a numerical value between two values (currently support root only f(x)=0).
  * 3. Derivative
  * 
- * @author Boaz
+ * @author 
  *
  */
 public class Polynom implements Polynom_able{
 	private ArrayList<Monom>_monoms=new ArrayList<Monom>();
 	private Monom_Comperator c = new Monom_Comperator();
 
-
+	/**
+	 * create a new polynom with monom zero 
+	 */
 	public Polynom() {
 		_monoms=new ArrayList<Monom>(1);
 		_monoms.add(0,new Monom(0,0));
 	}
-	
+	/**
+	 * get a string and build new polynom
+	 * @param s
+	 */
 	public Polynom(String s) {
 		s=s.replaceAll(" ","");
 		s=s.toLowerCase();
@@ -36,6 +41,9 @@ public class Polynom implements Polynom_able{
 
 	}
 	@Override
+	/**
+	 * give the value of the polynom in f(x)
+	 */
 	public double f(double x) {
 		double f_ans=0;
 		for(int i=0;i<_monoms.size();i++) {
@@ -48,6 +56,9 @@ public class Polynom implements Polynom_able{
 	}
 
 	@Override
+	/**
+	 * add a polynom to current polynom
+	 */
 	public void add(Polynom_able p1) {
 		// TODO Auto-generated method stub
 
@@ -61,6 +72,9 @@ public class Polynom implements Polynom_able{
 	}
 
 	@Override
+	/**
+	 * add a monom to current polynom
+	 */
 	public void add(Monom m1) {
 		// TODO Auto-generated method stub
 
@@ -77,6 +91,9 @@ public class Polynom implements Polynom_able{
 	}
 
 	@Override
+	/**
+	 * substract a polynom from the current polynom
+	 */
 	public void substract(Polynom_able p1) {
 		// TODO Auto-generated method stub
 		Polynom p2=new Polynom(p1.toString());
@@ -93,6 +110,9 @@ public class Polynom implements Polynom_able{
 	}
 
 	@Override
+	/**
+	 * multiply a polynom from the current polynom
+	 */
 	public void multiply(Polynom_able p1) {
 		// TODO Auto-generated method stub
 		Polynom newp= new Polynom();
@@ -111,6 +131,9 @@ public class Polynom implements Polynom_able{
 
 	}
 	@Override
+	/**
+	 * check if object is equal to the current polynom
+	 */
 	public boolean equals(Object p1) {
 		if(p1 instanceof Polynom) {
 			Iterator<Monom> itr=this.iteretor();
@@ -149,7 +172,7 @@ public class Polynom implements Polynom_able{
 
 	}
 
-	
+
 
 	@Override
 	public boolean isZero() {
@@ -163,6 +186,9 @@ public class Polynom implements Polynom_able{
 	}
 
 	@Override
+	/**
+	 *  Intermediate value theorem
+	 */
 	public double root(double x0, double x1, double eps) {
 		// TODO Auto-generated method stub
 
@@ -185,6 +211,9 @@ public class Polynom implements Polynom_able{
 	}
 
 	@Override
+	/**
+	 * copy this polynom and retrun a new polynom 
+	 */
 	public function copy() {
 		// TODO Auto-generated method stub
 		function p=new Polynom(this.toString());
@@ -192,6 +221,9 @@ public class Polynom implements Polynom_able{
 	}
 
 	@Override
+	/**
+	 * return the derivative of this polynom in a form of polynom
+	 */
 	public Polynom_able derivative() {
 		// TODO Auto-generated method stub
 		Polynom p=new Polynom();
@@ -202,6 +234,9 @@ public class Polynom implements Polynom_able{
 	}
 
 	@Override
+	/**
+	 * calcuate the area bettween the function and the positive area in the x0 x1 point
+	 */
 	public double area(double x0, double x1, double eps) {
 		// TODO Auto-generated method stub
 		double area_sum=0;
@@ -234,7 +269,9 @@ public class Polynom implements Polynom_able{
 		this._monoms.sort(c);
 	}
 
-
+	/**
+	 * return the string of this polynom
+	 */
 	public String toString() {
 		String ans="";
 		for(int i=0;i<this._monoms.size();i++) {
@@ -246,7 +283,7 @@ public class Polynom implements Polynom_able{
 				ans=ans+this._monoms.get(i).toString();
 
 		}
-		
+
 
 		return ans;
 	}
